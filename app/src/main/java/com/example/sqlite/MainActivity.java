@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener {
 
+    private MainPresenter presenter;
     private EditText name;
     private EditText email;
     private Button add;
@@ -30,11 +32,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String email = String.valueOf(this.email.getText());
         switch (v.getId()) {
             case R.id.add:
+                presenter.addPeople(name, email);
                 break;
             case R.id.read:
+
                 break;
             case R.id.remove:
                 break;
         }
+    }
+
+    @Override
+    public void showToast(String text) {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                text, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
