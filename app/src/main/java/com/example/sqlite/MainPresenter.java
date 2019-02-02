@@ -16,19 +16,25 @@ class MainPresenter{
 
     void addPeople(String name, String email){
         Log.e("MyLog", "name " + name + " name " + email);
-        App.getNewInstanse().getDatabase().peopleDao().add(new People(name, email));
+        People people = new People();
+        people.name = name;
+        people.email = email;
+        App.getNewInstanse().getDatabase().peopleDao().add(people);
         view.showToast("Добавлено");
     }
 
-    void removePeople(String name){
+    void removePeople(String name, String email){
+        People people = new People();
+        people.name = name;
+        people.email = email;
         Log.e("MyLog", "remove name " + name);
-
+        App.getNewInstanse().getDatabase().peopleDao().remove(people);
         view.showToast("Удалено");
     }
 
     void getPeople(String name){
         Log.e("MyLog", "name " + name);
-
-        view.showToast("Имя: " + name);
+        People people = App.getNewInstanse().getDatabase().peopleDao().getById(name);
+        view.showToast("Имя: " + people.name + " email " + people.email);
     }
 }

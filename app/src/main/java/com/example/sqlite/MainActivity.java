@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
                 presenter.getPeople(name);
                 break;
             case R.id.remove:
-                presenter.removePeople(name);
+                presenter.removePeople(name, email);
                 break;
             case R.id.showPeoples:
                 presenter.getPeooples();
