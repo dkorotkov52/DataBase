@@ -3,17 +3,32 @@ package com.example.sqlite;
 import android.app.Presentation;
 import android.util.Log;
 
-public class MainPresenter{
+import java.util.List;
+
+class MainPresenter{
     private MainView view;
 
-    public void addPeople(String name, String email){
-        long id = generateId();
-        Log.e("MyLog", id + " name " + name + " name " + email);
-        App.getNewInstanse().getDatabase().peopleDao().add(new People(id, name, email));
+    void getPeooples (){
+        List<People> peoples;
+        peoples = App.getNewInstanse().getDatabase().peopleDao().getAll();
+        view.showList(peoples);
+    }
+
+    void addPeople(String name, String email){
+        Log.e("MyLog", "name " + name + " name " + email);
+        App.getNewInstanse().getDatabase().peopleDao().add(new People(name, email));
         view.showToast("Добавлено");
     }
 
-    private long generateId(){
-        return (long) (Math.random() * 9999);
+    void removePeople(String name){
+        Log.e("MyLog", "remove name " + name);
+
+        view.showToast("Удалено");
+    }
+
+    void getPeople(String name){
+        Log.e("MyLog", "name " + name);
+
+        view.showToast("Имя: " + name);
     }
 }

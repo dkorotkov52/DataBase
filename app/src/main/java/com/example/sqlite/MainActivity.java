@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener {
 
@@ -17,13 +20,18 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     private Button add;
     private Button read;
     private Button remove;
+    private TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        add = findViewById(R.id.add);
+        read = findViewById(R.id.read);
+        remove = findViewById(R.id.remove);
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
+        text = findViewById(R.id.text);
     }
 
     @Override
@@ -35,9 +43,13 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
                 presenter.addPeople(name, email);
                 break;
             case R.id.read:
-
+                presenter.getPeople(name);
                 break;
             case R.id.remove:
+                presenter.removePeople(name);
+                break;
+            case R.id.showPeoples:
+                presenter.getPeooples();
                 break;
         }
     }
@@ -47,5 +59,12 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         Toast toast = Toast.makeText(getApplicationContext(),
                 text, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    public void showList(List<People> peoples) {
+        for (int i = 0; i < peoples.size(); i++){
+            text.append(peoples.get(i).toString() + "/n");
+        }
     }
 }

@@ -7,14 +7,15 @@ import android.arch.persistence.room.PrimaryKey;
 public class People {
 
     @PrimaryKey
-    public long id;
-
     public String name;
-    public String email;
 
-    public People(long id, String name, String email) {
-        this.id = id;
+    public String email;
+    public People(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public People(String name) {
+        this.name = name;
     }
 }
