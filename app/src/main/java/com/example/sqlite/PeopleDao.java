@@ -21,9 +21,9 @@ public interface PeopleDao {
     Single<People> getById(String name);
 
     @Insert
-    Single<Void> add(People people);
+    void add(People people);
 
     @Delete
-    Single<Void> remove(People people);
+    void remove(People people);
 
 }
