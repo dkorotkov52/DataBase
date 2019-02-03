@@ -1,6 +1,7 @@
 package com.example.sqlite;
 
 import android.arch.persistence.room.Room;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -80,8 +81,11 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public void showList(List<People> peoples) {
-        for (int i = 0; i < peoples.size(); i++){
+        for (int i = 0; i < peoples.size(); i++) {
             text.append("peopel name " + peoples.get(i).name + " email: " + peoples.get(i).email);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                System.getProperty("line.separator");
+            }
             //TODO add in recyclerView + adapter
         }
     }

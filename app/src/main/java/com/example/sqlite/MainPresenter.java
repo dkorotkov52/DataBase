@@ -25,7 +25,12 @@ class MainPresenter{
         People people = new People();
         people.name = name;
         people.email = email;
-        App.getNewInstanse().getDatabase().peopleDao().add(people);
+        try {
+            App.getNewInstanse().getDatabase().peopleDao().add(people);
+        }
+        catch (Exception e){
+
+        }
         view.showToast("Добавлено");
     }
 
