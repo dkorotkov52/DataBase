@@ -14,6 +14,7 @@ public class App extends Application {
         super.onCreate();
         newInstanse = this;
         database = Room.databaseBuilder(this, AppDataBase.class, "database")
+                .allowMainThreadQueries()
                 .build();
     }
 

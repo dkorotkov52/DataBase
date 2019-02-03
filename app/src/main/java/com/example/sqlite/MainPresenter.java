@@ -4,6 +4,7 @@ import android.app.Presentation;
 import android.util.Log;
 
 import java.util.List;
+import java.util.Observable;
 
 class MainPresenter{
     private MainView view;
@@ -15,7 +16,7 @@ class MainPresenter{
     }
 
     void addPeople(String name, String email){
-        Log.e("MyLog", "name " + name + " name " + email);
+        Log.e("MyLog", "name " + name + " email " + email);
         People people = new People();
         people.name = name;
         people.email = email;
@@ -28,6 +29,7 @@ class MainPresenter{
         people.name = name;
         people.email = email;
         Log.e("MyLog", "remove name " + name);
+
         App.getNewInstanse().getDatabase().peopleDao().remove(people);
         view.showToast("Удалено");
     }

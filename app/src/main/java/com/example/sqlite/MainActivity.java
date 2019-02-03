@@ -26,29 +26,44 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        presenter = new MainPresenter();
+        initView();
+    }
+
+    private void initView() {
         add = findViewById(R.id.add);
+        add.setOnClickListener(this);
         read = findViewById(R.id.read);
+        read.setOnClickListener(this);
         remove = findViewById(R.id.remove);
+        remove.setOnClickListener(this);
         name = findViewById(R.id.name);
+        name.setOnClickListener(this);
         email = findViewById(R.id.email);
+        email.setOnClickListener(this);
         text = findViewById(R.id.text);
+        text.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        String name = String.valueOf(this.name.getText());
-        String email = String.valueOf(this.email.getText());
+        String textName = String.valueOf(this.name.getText());
+        String textEmail = String.valueOf(this.email.getText());
         switch (v.getId()) {
             case R.id.add:
-                presenter.addPeople(name, email);
+                Log.e("MyLog", "tap add");
+                presenter.addPeople(textName, textEmail);
                 break;
             case R.id.read:
-                presenter.getPeople(name);
+                Log.e("MyLog", "tap read");
+                presenter.getPeople(textName);
                 break;
             case R.id.remove:
-                presenter.removePeople(name, email);
+                Log.e("MyLog", "tap remove");
+                presenter.removePeople(textName, textEmail);
                 break;
             case R.id.showPeoples:
+                Log.e("MyLog", "tap show");
                 presenter.getPeooples();
                 break;
         }
