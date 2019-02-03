@@ -9,9 +9,14 @@ import java.util.Observable;
 class MainPresenter{
     private MainView view;
 
+    public MainPresenter(MainView view) {
+        this.view = view;
+    }
+
     void getPeooples (){
         List<People> peoples;
         peoples = App.getNewInstanse().getDatabase().peopleDao().getAll();
+        Log.e("MyLog", String.valueOf(peoples.size()));
         view.showList(peoples);
     }
 

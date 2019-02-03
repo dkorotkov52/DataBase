@@ -21,12 +21,13 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     private Button read;
     private Button remove;
     private TextView text;
+    private Button showPeoples;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        presenter = new MainPresenter();
+        presenter = new MainPresenter(this);
         initView();
     }
 
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         email = findViewById(R.id.email);
         email.setOnClickListener(this);
         text = findViewById(R.id.text);
-        text.setOnClickListener(this);
+        showPeoples = findViewById(R.id.showPeoples);
+        showPeoples.setOnClickListener(this);
     }
 
     @Override
@@ -79,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     @Override
     public void showList(List<People> peoples) {
         for (int i = 0; i < peoples.size(); i++){
-            text.append(peoples.get(i).toString() + "/n");
+            text.append("peopel name " + peoples.get(i).name + " email: " + peoples.get(i).email);
+            //TODO add in recyclerView + adapter
         }
     }
 }
