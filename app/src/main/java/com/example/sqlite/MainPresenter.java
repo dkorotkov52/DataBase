@@ -16,7 +16,6 @@ class MainPresenter{
     void getPeooples (){
         List<People> peoples;
         peoples = App.getNewInstanse().getDatabase().peopleDao().getAll();
-        Log.e("MyLog", String.valueOf(peoples.size()));
         view.showList(peoples);
     }
 
@@ -48,5 +47,14 @@ class MainPresenter{
         Log.e("MyLog", "name " + name);
         People people = App.getNewInstanse().getDatabase().peopleDao().getById(name);
         view.showToast("Имя: " + people.name + " email " + people.email);
+    }
+
+    public void allDelete() {
+        List<People> peoples;
+        peoples = App.getNewInstanse().getDatabase().peopleDao().getAll();
+        for (int i = 0; i < peoples.size(); i++){
+            App.getNewInstanse().getDatabase().peopleDao().remove(peoples.get(i));
+        }
+        view.showToast("Почистил БД");
     }
 }

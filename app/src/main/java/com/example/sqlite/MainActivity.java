@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     private Button remove;
     private TextView text;
     private Button showPeoples;
+    private Button allDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         text = findViewById(R.id.text);
         showPeoples = findViewById(R.id.showPeoples);
         showPeoples.setOnClickListener(this);
+        allDelete = findViewById(R.id.all_delete);
+        allDelete.setOnClickListener(this);
     }
 
     @Override
@@ -54,20 +57,19 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         String textEmail = String.valueOf(this.email.getText());
         switch (v.getId()) {
             case R.id.add:
-                Log.e("MyLog", "tap add");
                 presenter.addPeople(textName, textEmail);
                 break;
             case R.id.read:
-                Log.e("MyLog", "tap read");
                 presenter.getPeople(textName);
                 break;
             case R.id.remove:
-                Log.e("MyLog", "tap remove");
                 presenter.removePeople(textName, textEmail);
                 break;
             case R.id.showPeoples:
-                Log.e("MyLog", "tap show");
                 presenter.getPeooples();
+                break;
+            case R.id.all_delete:
+                presenter.allDelete();
                 break;
         }
     }
@@ -81,12 +83,13 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public void showList(List<People> peoples) {
+        text.setText("Список из БД: ");
         for (int i = 0; i < peoples.size(); i++) {
-            text.append("peopel name " + peoples.get(i).name + " email: " + peoples.get(i).email);
+            text.append(i + ") " + "peopel name " + peoples.get(i).name + " email: " + peoples.get(i).email + "       ");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 System.getProperty("line.separator");
             }
-            //TODO add in recyclerView + adapter
+            //TODO add in recyclerView + adapter...
         }
     }
 }

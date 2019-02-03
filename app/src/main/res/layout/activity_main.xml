@@ -58,6 +58,13 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/all_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Удалить всех"
+        />
+
+    <Button
         android:id="@+id/showPeoples"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
