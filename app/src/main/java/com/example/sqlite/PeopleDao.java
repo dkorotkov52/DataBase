@@ -9,19 +9,21 @@ import android.arch.persistence.room.Query;
 import java.lang.ref.SoftReference;
 import java.util.List;
 
+import io.reactivex.Single;
+
 @Dao
 public interface PeopleDao {
 
     @Query("SELECT * FROM people")
-    List<People> getAll();
+    Single<List<People>> getAll();
 
     @Query("SELECT * FROM people WHERE name = :name")
-    People getById(String name);
+    Single<People> getById(String name);
 
     @Insert
-    void add(People people);
+    Single<Void> add(People people);
 
     @Delete
-    void remove(People people);
+    Single<Void> remove(People people);
 
 }

@@ -1,5 +1,6 @@
 package com.example.sqlite;
 
+import android.annotation.SuppressLint;
 import android.app.Presentation;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -15,8 +16,15 @@ class MainPresenter {
     }
 
     void getPeooples() {
-        List<People> peoples;
-        peoples = App.getNewInstanse().getDatabase().peopleDao().getAll();
+        App.getNewInstanse().getDatabase().peopleDao().getAll().subscribe(this::onGetPeople, this::onError);
+    }
+
+    private void onError(Throwable throwable) {
+        view.showToast("ERROR");
+        Log.e("MyLog", throwable.getMessage());
+    }
+
+    private void onGetPeople(List<People> peoples) {
         view.showList(peoples);
     }
 
@@ -25,11 +33,10 @@ class MainPresenter {
         People people = new People();
         people.name = name;
         people.email = email;
-        try {
-            App.getNewInstanse().getDatabase().peopleDao().add(people);
-        } catch (Exception e) {
-            view.showToast("Не удалось");
-        }
+        App.getNewInstanse().getDatabase().peopleDao().add(people).subscribe(this::onAddPeople, this::onError);
+    }
+
+    private void onAddPeople(Void aVoid) {
         view.showToast("Добавлено");
     }
 
@@ -37,35 +44,28 @@ class MainPresenter {
         People people = new People();
         people.name = name;
         people.email = email;
-        Log.e("MyLog", "remove name " + name);
-        try {
-            App.getNewInstanse().getDatabase().peopleDao().remove(people);
-        } catch (Exception e) {
-            view.showToast("Не удалось");
-        }
+        App.getNewInstanse().getDatabase().peopleDao().remove(people).subscribe(this::onRemovePeople, this::onError);
+    }
+
+    private void onRemovePeople(Void aVoid) {
         view.showToast("Удалено");
     }
 
     void getPeople(String name) {
-        Log.e("MyLog", "name " + name);
-        try {
-            People people = App.getNewInstanse().getDatabase().peopleDao().getById(name);
-            view.showToast("Имя: " + people.name + " email " + people.email);
-        } catch (Exception e) {
-            view.showToast("Не удалось");
-        }
+        App.getNewInstanse().getDatabase().peopleDao().getById(name).subscribe(this::showPeople, this::onError);
+    }
+
+    private void showPeople(People people) {
+        view.showToast(people.name + " " + people.email);
     }
 
     public void allDelete() {
-        List<People> peoples;
-        peoples = App.getNewInstanse().getDatabase().peopleDao().getAll();
+        App.getNewInstanse().getDatabase().peopleDao().getAll().subscribe(this::onPeopleForDelete, this::onError);
+    }
+
+    private void onPeopleForDelete(List<People> peoples) {
         for (int i = 0; i < peoples.size(); i++) {
-            try {
-            App.getNewInstanse().getDatabase().peopleDao().remove(peoples.get(i));
-            }
-            catch (Exception e){
-                view.showToast("Не удалось");
-            }
+            App.getNewInstanse().getDatabase().peopleDao().remove(peoples.get(i)).subscribe(this::onRemovePeople, this::onError);
         }
         view.showToast("Почистил БД");
     }

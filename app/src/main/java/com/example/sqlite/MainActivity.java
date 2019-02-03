@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 System.getProperty("line.separator");
             }
-            //TODO add in recyclerView + adapter...
+            //TODO add in recyclerView + adapter and delete logic...
         }
     }
 }
